@@ -31,9 +31,11 @@ function getNewTouches(e) {
 
 (function($) {
 	$.fn.tap = function(handler) {
-		this.addEventListener("touchstart", function(e) {
-			console.log(JSON.stringify(getNewTouches(e)));
-		}, false);
+		return this.each(function() {
+			this.addEventListener("touchstart", function(e) {
+				console.log(JSON.stringify(getNewTouches(e)));
+			}, false);
+		});
 	};
 })(jQuery);
 
