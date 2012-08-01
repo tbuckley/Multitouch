@@ -1,3 +1,13 @@
+var touchstart = "mousedown",
+    touchend = "mouseup";
+if(document.createTouch) {
+	console.log("Touch detected!");
+	touchstart = "touchstart";
+	touchend = "touchend";
+} else {
+	console.log("No touch...");
+}
+
 function getTouchIds(touches) {
 	var ids = [];
 	for(var i = 0; i < touches.length; i++) {
@@ -18,7 +28,7 @@ function makeLookupTable(arr) {
 }
 
 function getNewTouches(e) {
-	var changed = makeLookupTable(getChangedTouches(e));
+	var changed = makeLookupTable(getChangedIds(e));
 	var target = getTargetIds(e);
 	var newTouches = [];
 	for(var id in target) {
@@ -32,7 +42,7 @@ function getNewTouches(e) {
 (function($) {
 	$.fn.tap = function(handler) {
 		return this.each(function() {
-			this.addEventListener("touchstart", function(e) {
+			this.addEventListener(touchstart, function(e) {
 				console.log(JSON.stringify(getNewTouches(e)));
 			}, false);
 		});
